@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 class AddCommunites extends StatefulWidget {
   @override
@@ -9,6 +9,8 @@ class AddCommunites extends StatefulWidget {
 class _AddCommunitesState extends State<AddCommunites> {
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as Map<String, User?>;
+    User? _user = args["user"];
     return Scaffold(
       appBar: AppBar(
         title: const Text('Join/Create Communities'),
@@ -30,10 +32,12 @@ class _AddCommunitesState extends State<AddCommunites> {
               ),
               TextButton.icon(
                   onPressed: () {
-
+                    Navigator.pushNamed(context, "/createCom", arguments: {
+                      "user": _user
+                    });
                   },
                   icon: const Icon(Icons.add),
-                  label: const Text('Create a Commmunity')),
+                  label: const Text('Create a Community')),
             ],
           ),
         ),
